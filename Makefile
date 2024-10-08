@@ -70,6 +70,7 @@ clean_hard:
 ############
 $(TEX_PDF): out/%.pdf: %.tex $(USE_LATEX2PDF) $(TOOL_LACHECK)
 	$(info doing [$@])
+	$(Q)mkdir -p $(dir $@)
 	$(Q)$(TOOL_LACHECK) $<
 	$(Q)$(USE_LATEX2PDF) $< $@
 

@@ -82,11 +82,16 @@ def chmod_check(filename:str, check: bool, debug: bool):
 def my_call(args, debug: bool):
     if debug:
         print(f"my_call args are [{args}]", file=sys.stderr)
-    res = subprocess.check_call(
-        args,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
+    if debug:
+        res = subprocess.check_call(
+                args,
+        )
+    else:
+        res = subprocess.check_call(
+            args,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
     if debug:
         print(f"my_call res is [{res}]", file=sys.stderr)
     return res
@@ -125,7 +130,7 @@ def main():
 
     args = [
         "pdflatex",
-        "--shell-escape"
+        # "--shell-escape"
         "-interaction=nonstopmode",
         "-halt-on-error",
         "-output-directory",
@@ -147,8 +152,8 @@ def main():
     for _ in range(runs):
         my_call(args, debug)
         unlink_check(output_base+".log", True, True, debug)
-        unlink_check(output_base+".out", True, True, debug)
-        unlink_check(output_base+".toc", True, True, debug)
+        unlink_check(output_base+".out", False, True, debug)
+        unlink_check(output_base+".toc", False, True, debug)
         unlink_check(output_base+".aux", True, True, debug)
         unlink_check(output_base+".nav", False, True, debug)
         unlink_check(output_base+".snm", False, True, debug)
