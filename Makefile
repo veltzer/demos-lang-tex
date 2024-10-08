@@ -7,18 +7,13 @@ DO_ALLDEP:=1
 DO_MKDBG:=0
 # do you want to convert .tex to .pdf ?
 DO_TEX_PDF:=1
+# do you want to lint your python scripts?
+DO_PY_LINT:=1
 
 ########
 # code #
 ########
 ALL:=
-
-# tools
-TOOL_LATEX2HTML:=latex2html
-TOOL_LACHECK:=scripts/wrapper_lacheck.py
-TOOL_SKETCH:=sketch
-TOOL_PDFLATEX:=pdflatex
-USE_LATEX2PDF:=scripts/wrapper_pdflatex.py
 
 # silent stuff
 ifeq ($(DO_MKDBG),1)
@@ -32,16 +27,16 @@ endif # DO_MKDBG
 TEX_SRC:=$(shell find src -type f -and -name "*.tex")
 TEX_PDF:=$(addprefix out/, $(addsuffix .pdf, $(basename $(TEX_SRC))))
 
-PY_SRC:=$(shell find scripts -type f -not -path "./.venv/*" -name "*.py")
-PY_PYLINT:=$(addprefix out/, $(addsuffix .pylint, $(basename $(PY_SRC))))
+PY_SRC:=$(shell find scripts -type f -and -name "*.py")
+PY_LINT:=$(addprefix out/, $(addsuffix .lint, $(basename $(PY_SRC))))
 
 ifeq ($(DO_TEX_PDF),1)
 ALL+=$(TEX_PDF)
 endif # DO_PDF
 
-ifeq ($(DO_PYLINT),1)
-ALL:=$(ALL) out/pylint.stamp
-endif # DO_PYLINT
+ifeq ($(DO_PY_LINT),1)
+ALL+=$(PY_LINT)
+endif # DO_PY_LINT
 
 #########
 # rules #
@@ -55,7 +50,7 @@ debug:
 	$(info TEX_SRC is $(TEX_SRC))
 	$(info TEX_PDF is $(TEX_PDF))
 	$(info PY_SRC is $(PY_SRC))
-	$(info PY_PYLINT is $(PY_PYLINT))
+	$(info PY_LINT is $(PY_LINT))
 	$(info ALL is $(ALL))
 .PHONY: clean
 clean:
@@ -68,11 +63,15 @@ clean_hard:
 ############
 # patterns #
 ############
-$(TEX_PDF): out/%.pdf: %.tex $(USE_LATEX2PDF) $(TOOL_LACHECK)
+$(TEX_PDF): out/%.pdf: %.tex scripts/wrapper_pdflatex.py scripts/wrapper_lacheck.py
 	$(info doing [$@])
 	$(Q)mkdir -p $(dir $@)
-	$(Q)$(TOOL_LACHECK) $<
-	$(Q)$(USE_LATEX2PDF) $< $@
+	$(Q)scripts/wrapper_lacheck.py $<
+	$(Q)scripts/wrapper_pdflatex.py $< $@
+$(PY_LINT): out/%.lint: %.py
+	$(info doing [$@])
+	$(Q)pylint --reports=n --score=n $<
+	$(Q)pymakehelper touch_mkdir $@
 
 ##########
 # alldep #

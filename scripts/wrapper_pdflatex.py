@@ -36,7 +36,7 @@ def printout(filename: str, debug: bool):
     """
     if debug:
         print(f"printing [{filename}]", file=sys.stderr)
-    with open(filename) as stream:
+    with open(filename, encoding="utf8") as stream:
         inerr = False
         for line in stream:
             if inerr:
@@ -80,6 +80,7 @@ def chmod_check(filename:str, check: bool, debug: bool):
 
 
 def my_call(args, debug: bool):
+    """ subprocess.check_call in my own style """
     if debug:
         print(f"my_call args are [{args}]", file=sys.stderr)
     if debug:
@@ -113,6 +114,7 @@ def my_rename(old_filename: str, new_filename: str, check: bool, debug: bool):
 
 
 def main():
+    """ main entry point """
     # do you want debugging...
     debug = False
     # remove the tmp file for output at the end of the run? (this should be yes
