@@ -1,3 +1,4 @@
 packages=[
         "lacheck",
+        "qpdf",
 ]
