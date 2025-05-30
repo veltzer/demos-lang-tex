@@ -68,7 +68,7 @@ $(TEX_PDF): out/%.pdf: %.tex scripts/wrapper_lacheck.py
 	$(Q)mkdir -p $(dir $@)
 	$(Q)scripts/wrapper_lacheck.py $<
 	$(Q)pymakehelper wrapper_pdflatex --input_file $< --output_file $@
-$(PY_LINT): out/%.lint: %.py
+$(PY_LINT): out/%.lint: %.py .pylintrc
 	$(info doing [$@])
 	$(Q)pylint --reports=n --score=n $<
 	$(Q)pymakehelper touch_mkdir $@
