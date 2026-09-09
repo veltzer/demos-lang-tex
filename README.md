@@ -1,11 +1,11 @@
 <!-- This file is generated. Do not edit it by hand: your changes will be
      lost on the next build. Edit the template it is rendered from, or the
      values that template reads, and build again. -->
-# *demos-tex* project by Mark Veltzer
+# *demos-lang-tex* project by Mark Veltzer
 
-description: Demos for tex language
+description: Demos for the tex language
 
-project website: https://veltzer.github.io/demos-tex
+project website: https://veltzer.github.io/demos-lang-tex
 
 author: Mark Veltzer
 
@@ -15,11 +15,11 @@ version: 0.0.1
 
 ## github
 
-![License](https://img.shields.io/github/license/veltzer/demos-tex)
+![License](https://img.shields.io/github/license/veltzer/demos-lang-tex)
 
 ## build
 
-![build](https://github.com/veltzer/demos-tex/workflows/build/badge.svg)
+![build](https://github.com/veltzer/demos-lang-tex/workflows/build/badge.svg)
 
 ## contact me
 

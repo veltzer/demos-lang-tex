@@ -1,3 +1,3 @@
-NAME = "demos-tex"
-DESCRIPTION_SHORT = "Demos for tex language"
+NAME = "demos-lang-tex"
+DESCRIPTION_SHORT = "Demos for the tex language"
 KEYWORDS = {"tex"}
