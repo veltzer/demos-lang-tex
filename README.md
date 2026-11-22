@@ -5,7 +5,7 @@
 
 description: Demos for the tex language
 
-project website: https://veltzer.github.io/demos-lang-tex
+project website: <https://veltzer.github.io/demos-lang-tex>
 
 author: Mark Veltzer
 
