@@ -12,7 +12,7 @@ import subprocess
 import sys
 
 
-def main():
+def main() -> None:
     """ main entry point """
     out = subprocess.check_output([
         "lacheck",
